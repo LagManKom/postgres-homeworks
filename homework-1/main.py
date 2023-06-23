@@ -24,14 +24,15 @@ def main():
                             f' VALUES (%s, %s, %s, %s, %s, %s)',
                             (row["employee_id"], row["first_name"], row["last_name"], row["title"], row["birth_date"],
                              row["notes"]))
-
+                #
                 with open('north_data/orders_data.csv', 'r', newline='') as csvfile:
                     reader = csv.DictReader(csvfile)
                     for row in reader:
                         cur.execute(
                             f'INSERT INTO orders_data (order_id, customer_id, employee_id, order_date, ship_city)'
                             f' VALUES (%s, %s, %s, %s, %s)',
-                            (row["order_id"], row["order_date"], row["ship_city"]))
+                            (row["order_id"], row["customer_id"], row["employee_id"], row['order_date'],
+                             row['ship_city']))
 
     finally:
         conn.close()
